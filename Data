@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retail Hub Breakfast Data Dashboard</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Chart.js for Infographics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <!-- Load Chart.js Data Labels Plugin (for the funnel chart) -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <!-- Load Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Tailwind Configuration for the New Brand Colors */
+        :root {
+            --color-primary-dark: #5c0014;    /* Deep Maroon: Primary Text, Main Accent */
+            --color-secondary-dark: #003f4d;  /* Dark Teal/Navy: Secondary Text, Strong Accent */
+            --color-accent-1: #c63500;        /* Burnt Orange: Tertiary Accent */
+            
+            --color-light-accent-1: #ffbfc2;  /* Pale Pink: Very Light Accent */
+            --color-light-accent-2: #c0eded;  /* Pale Cyan: Borders, Table Headers */
+            --color-light-accent-3: #ffd0b7;  /* Pale Peach: Light Chart Segment */
+            
+            --color-background-soft: #f1f5f6; /* Off-White: Main Background */
+            --color-white: #FFFFFF;          /* Card Background */
+            --color-chart-text: #171819;      /* Custom Dark Text for Charts */
+        }
+        
+        /* Custom Tailwind Classes for Brand Colors */
+        .text-primary-dark { color: var(--color-primary-dark); }
+        .bg-primary-dark { background-color: var(--color-primary-dark); }
+        .text-secondary-dark { color: var(--color-secondary-dark); }
+        .bg-secondary-dark { background-color: var(--color-secondary-dark); }
+        .text-accent-1 { color: var(--color-accent-1); }
+        .bg-accent-1 { background-color: var(--color-accent-1); }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-background-soft); /* Off-White Background */
+            padding: 2rem;
+        }
+
+        /* Chart container styling */
+        .chart-container {
+            position: relative;
+            height: 300px; /* Consistent height for charts */
+            width: 100%;
+        }
+        /* Specific height for the Funnel/Expense Charts to fit the layout */
+        .chart-container-small {
+            position: relative;
+            height: 250px;
+            width: 100%;
+        }
+
+        /* Responsive Table Styling */
+        .responsive-table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .responsive-table th, .responsive-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--color-light-accent-2); /* Pale Cyan Border */
+        }
+        .responsive-table th {
+            background-color: var(--color-light-accent-2); /* Pale Cyan Header */
+            color: var(--color-secondary-dark); /* Dark Teal Text */
+            font-weight: 600;
+        }
+        .card {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            border-radius: 0.75rem;
+            background-color: var(--color-white);
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        /* Define specific metric card border colors */
+        .metric-card-1 { border-left: 4px solid var(--color-primary-dark); } /* Deep Maroon */
+        .metric-card-2 { border-left: 4px solid var(--color-secondary-dark); } /* Dark Teal */
+        .metric-card-3 { border-left: 4px solid var(--color-accent-1); } /* Burnt Orange */
+        .metric-card-4 { border-left: 4px solid var(--color-secondary-dark); } /* Dark Teal (reuse) */
+    </style>
+</head>
+<body>
+
+    <div class="max-w-7xl mx-auto">
+        <!-- Dashboard Header -->
+        <header class="mb-8">
+            <h1 class="text-4xl font-extrabold text-primary-dark mb-2">Retail Hub Breakfast Event Analysis</h1>
+            <p class="text-lg text-secondary-dark">Performance Dashboard for a Successful Morning Event</p>
+        </header>
+
+        <!-- 1. Top-Line Performance Metrics (The Vitals) -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+            <!-- Total Attendance (#5c0014) - Total Attendance -->
+            <div class="card metric-card-1">
+                <p class="text-sm font-medium text-secondary-dark uppercase">Total Attendance</p>
+                <p class="text-4xl font-bold text-primary-dark mt-1">50</p>
+                <p class="text-xs text-secondary-dark">Estimated: 50</p>
+            </div>
+           <!-- RSVP Rate (#c63500) - RSVP Rate (excl. External) -->
+            <div class="card metric-card-3">
+                <p class="text-sm font-medium text-secondary-dark uppercase">RSVP Rate (excl. External)</p>
+                <p class="text-4xl font-bold text-accent-1 mt-1">25%</p>
+                <p class="text-xs text-secondary-dark">51 RSVPs from 208 invites</p>
+            </div>
+            <!-- RSVP Show-Up Rate (#003f4d) - RSVP Show-Up Rate (excl. External) -->
+            <div class="card metric-card-2">
+                <p class="text-sm font-medium text-secondary-dark uppercase">RSVP Show-Up Rate (excl. External)</p>
+                <p class="text-4xl font-bold text-secondary-dark mt-1">65%</p>
+                <p class="text-xs text-secondary-dark">39 Attendees of 51 total RSVPs</p>
+            </div>
+            <!-- Total Expenses (#003f4d) - Total Expenses -->
+            <div class="card metric-card-4">
+                <p class="text-sm font-medium text-secondary-dark uppercase">Total Expenses (SEK)</p>
+                <p class="text-4xl font-bold text-secondary-dark mt-1">8,974.42</p>
+                <p class="text-xs text-secondary-dark">Food, Flowers, LinkedIn Ad</p>
+            </div>
+        </div>
+
+        <!-- 2. & 3. Infographics and Breakdown -->
+        <!-- RESTAURADO: Diseño de 3 columnas para incluir el gráfico de Asistencia. -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+
+            <!-- RSVP Distribution Donut Chart (Col 1) -->
+            <div class="card lg:col-span-1">
+                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">RSVP Distribution (N=58)</h2>
+                <div class="chart-container">
+                    <canvas id="rsvpDistributionChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- RESTAURADO: Attendance Breakdown Stacked Bar Chart (Col 2 & 3) -->
+            <div class="card lg:col-span-2">
+                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">Total Attendance Breakdown (N=50)</h2>
+                <div class="chart-container">
+                    <canvas id="attendanceBreakdownChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Financial & Funnel Chart Details -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+
+            <!-- RESTAURADO: Expense Breakdown Chart (Col 1) -->
+            <div class="card lg:col-span-1">
+                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">Financial Summary (SEK)</h2>
+                <div class="chart-container-small mb-4">
+                    <canvas id="expenseChart"></canvas>
+                </div>
+                <!-- Cost Per Attendee UPDATED (8974.42 / 50 = 179.49) -->
+                <div class="text-center mt-4">
+                    <p class="text-sm font-medium text-secondary-dark uppercase">Cost Per Attendee</p>
+                    <p class="text-2xl font-bold text-primary-dark">~179.49 SEK</p>
+                </div>
+            </div>
+            
+            <!-- RESTAURADO: Invitation Funnel Chart (Col 2 & 3) -->
+            <div class="card lg:col-span-2">
+                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">Invitation Funnel: Invite, RSVP, and Attendance</h2>
+                <div class="chart-container-small mb-4">
+                    <canvas id="funnelChart"></canvas>
+                </div>
+                <div class="text-center mt-4 text-secondary-dark">
+                    <p class="text-sm font-medium">Visualization of the conversion funnel from 208 invites to 39 confirmed attendees (excl. external).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Invitation & Expense Tables (New Full-Width Section) -->
+        <div class="grid grid-cols-1 gap-6">
+            <div class="card">
+                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">Invitation Sources & Expense Details</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Invitation Table - UNCHANGED -->
+                    <div>
+                        <h3 class="text-lg font-medium text-primary-dark mb-3">Total People Directly Invited (N=208)</h3>
+                        <table class="responsive-table">
+                            <thead>
+                                <tr>
+                                    <th>Source</th>
+                                    <th>Count</th>
+                                    <th>% of Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>HQ Mail List (HQ)</td><td>66</td><td>31.7%</td></tr>
+                                <tr><td>NGRH Mail List (NGRH)</td><td>27</td><td>13.0%</td></tr>
+                                <tr><td>Mail Invites</td><td>115</td><td>55.3%</td></tr>
+                                <tr class="font-bold border-t-2 border-[var(--color-primary-dark)]"><td>TOTAL INVITED</td><td>208</td><td>100%</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Expense Table - UNCHANGED -->
+                    <div>
+                        <h3 class="text-lg font-medium text-primary-dark mb-3">Total Expenses Breakdown</h3>
+                        <table class="responsive-table">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Cost (SEK)</th>
+                                    <th>% of TC</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>LinkedIn Ad</td><td>5,586.00</td><td>62.2%</td></tr>
+                                <tr><td>Food (excl. Coffee)</td><td>2,688.42</td><td>30.0%</td></tr>
+                                <tr><td>Flowers (Host/Speaker)</td><td>700.00</td><td>7.8%</td></tr>
+                                <tr class="font-bold border-t-2 border-[var(--color-primary-dark)]"><td>TOTAL EXPENSES</td><td>8,974.42</td><td>100%</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Data derived from the user's provided analysis
+        const data = {
+            // RSVP Distribution (N=58). Data is UNCHANGED.
+            rsvpLabels: ['Mail Invites', 'Workshop (WS)', 'NGRH', 'External (Social)'],
+            rsvpCounts: [34, 10, 7, 7], // Total: 58
+            
+            // Attendance Breakdown (N=50). ESTA DATA YA NO SE USA PARA UN GRÁFICO, PERO SE MANTIENE PARA LOS KPI's
+            attendanceLabels: ['Silent Attendees', 'External RSVP', 'Workshop RSVP', 'NGRH RSVP', 'Invited RSVP'],
+            attendanceCounts: [6, 5, 8, 7, 24], 
+            
+            // Expense Breakdown (Total: 8,974.42 SEK). Data is UNCHANGED.
+            expenseLabels: ['LinkedIn Ad', 'Food', 'Flowers'],
+            expenseCosts: [5586.00, 2688.42, 700.00],
+
+            // Funnel Breakdown (Invite, RSVP excl. external, Attendee excl. external)
+            // Total Invited: 208, RSVPs excl. External: 51, Attendees excl. External: 39 
+            funnelLabels: ['Attendees (excl. External)', 'RSVPs (excl. External)', 'Total Invited People'],
+            funnelCounts: [39, 51, 208]
+        };
+        
+        // Brand colors (as defined by user's request)
+        const colors = {
+            primaryDark: '#5c0014',     // Deep Maroon
+            secondaryDark: '#003f4d',   // Dark Teal/Navy
+            accentOrange: '#c63500',    // Burnt Orange
+            lightAccentPink: '#ffbfc2', // Pale Pink
+            lightAccentCyan: '#c0eded',  // Pale Cyan
+            lightAccentPeach: '#ffd0b7', // Pale Peach
+            softBackground: '#f1f5f6',  // Off-White
+            white: '#FFFFFF',
+            chartText: '#171819'        // Custom Dark Text
+        };
+
+        // Function to create the Donut Chart (RSVP Distribution)
+        function createRsvpDistributionChart() {
+            const ctx = document.getElementById('rsvpDistributionChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: data.rsvpLabels,
+                    datasets: [{
+                        label: 'RSVP Count',
+                        data: data.rsvpCounts,
+                        backgroundColor: [
+                            colors.primaryDark,
+                            colors.secondaryDark,
+                            colors.accentOrange,
+                            colors.lightAccentCyan
+                        ],
+                        hoverOffset: 4,
+                        borderWidth: 2,
+                        borderColor: colors.softBackground
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                usePointStyle: true,
+                                color: colors.chartText // USANDO EL NUEVO COLOR
+                            }
+                        },
+                        title: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.parsed;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((value / total) * 100).toFixed(1) + '%';
+                                    return ` ${context.label}: ${value} (${percentage})`;
+                                }
+                            }
+                        },
+                        // Data labels for percentage inside slices
+                        datalabels: { 
+                            color: colors.white, 
+                            font: { weight: 'bold', size: 12 },
+                            formatter: (value, context) => {
+                                const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                const percentage = Math.round((value / total) * 100) + '%';
+                                return percentage; 
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Function to create the Stacked Bar Chart (Attendance Breakdown)
+        function createAttendanceBreakdownChart() {
+            const ctx = document.getElementById('attendanceBreakdownChart').getContext('2d');
+            const totalAttendance = data.attendanceCounts.reduce((a, b) => a + b, 0); // Should be 50
+
+            // Calculate percentages for the stacked bar labels
+            const percentages = data.attendanceCounts.map(count => ((count / totalAttendance) * 100).toFixed(1) + '%');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Total Event Attendance'],
+                    datasets: [
+                        { label: 'Invited RSVP (24)', data: [data.attendanceCounts[4]], backgroundColor: colors.primaryDark, stack: 'Stack 1' },
+                        { label: 'NGRH RSVP (7)', data: [data.attendanceCounts[3]], backgroundColor: colors.secondaryDark, stack: 'Stack 1' },
+                        { label: 'Workshop RSVP (8)', data: [data.attendanceCounts[2]], backgroundColor: colors.accentOrange, stack: 'Stack 1' },
+                        { label: 'External RSVP (5)', data: [data.attendanceCounts[1]], backgroundColor: colors.lightAccentPeach, stack: 'Stack 1' },
+                        { 
+                            label: 'Silent Attendees (6)', 
+                            data: [data.attendanceCounts[0]], 
+                            backgroundColor: colors.lightAccentPink, 
+                            borderColor: colors.primaryDark, 
+                            borderWidth: 1, 
+                            stack: 'Stack 1' 
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y', // Horizontal bar
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                usePointStyle: true,
+                                color: colors.chartText, // USANDO EL NUEVO COLOR
+                                reverse: true
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                title: () => `Total Attendees: ${totalAttendance}`,
+                                label: function(context) {
+                                    const count = context.parsed.x;
+                                    // Manually mapping index based on the order in data.attendanceCounts
+                                    const labelMap = {
+                                        'Invited RSVP (24)': 4,
+                                        'NGRH RSVP (7)': 3,
+                                        'Workshop RSVP (8)': 2,
+                                        'External RSVP (5)': 1,
+                                        'Silent Attendees (6)': 0
+                                    };
+                                    const percentageIndex = labelMap[context.dataset.label];
+                                    return ` ${context.dataset.label.replace(/\s\(\d+\)/, '')}: ${count} (${percentages[percentageIndex]})`;
+                                }
+                            } 
+                        },
+                        datalabels: { // Data labels para mostrar el total de la barra (oculto)
+                            anchor: 'end',
+                            align: 'right',
+                            offset: 4,
+                            color: colors.chartText, // USANDO EL NUEVO COLOR (Aunque el valor es null, lo cambiamos por si se activa)
+                            font: { weight: 'bold', size: 14 },
+                            formatter: (value, context) => {
+                                // Mantiene el valor en null para ocultar el número 50, como se solicitó anteriormente.
+                                return null;
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: true,
+                            max: 55,
+                            title: { display: true, text: 'Attendee Count', color: colors.chartText }, // USANDO EL NUEVO COLOR
+                            ticks: { color: colors.chartText } // USANDO EL NUEVO COLOR
+                        },
+                        y: {
+                            stacked: true,
+                            ticks: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Function to create the Pie Chart (Expense Breakdown)
+        function createExpenseChart() {
+            const ctx = document.getElementById('expenseChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: data.expenseLabels,
+                    datasets: [{
+                        label: 'Cost (SEK)',
+                        data: data.expenseCosts,
+                        backgroundColor: [
+                            colors.primaryDark,
+                            colors.secondaryDark,
+                            colors.accentOrange
+                        ],
+                        hoverOffset: 4,
+                        borderWidth: 2,
+                        borderColor: colors.softBackground
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                padding: 15,
+                                usePointStyle: true,
+                                color: colors.chartText // USANDO EL NUEVO COLOR
+                            }
+                        },
+                        title: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.parsed;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((value / total) * 100).toFixed(1) + '%';
+                                    return ` ${context.label}: ${value.toLocaleString('sv-SE', { style: 'currency', currency: 'SEK' })} (${percentage})`;
+                                }
+                            }
+                        },
+                        // Data labels for percentage inside slices
+                        datalabels: { 
+                            color: colors.white, 
+                            font: { weight: 'bold', size: 12 },
+                            formatter: (value, context) => {
+                                const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                const percentage = Math.round((value / total) * 100) + '%';
+                                return percentage; 
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Function to create the Horizontal Funnel Bar Chart
+        function createFunnelChart() {
+            const ctx = document.getElementById('funnelChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.funnelLabels,
+                    datasets: [{
+                        label: 'Count',
+                        data: data.funnelCounts,
+                        backgroundColor: [
+                            colors.accentOrange,     // Attendees excl. External
+                            colors.secondaryDark,    // RSVPs excl. External
+                            colors.primaryDark       // Invited
+                        ],
+                        borderColor: colors.softBackground,
+                        borderWidth: 1,
+                        borderRadius: 4,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y', // Horizontal bar
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` ${context.label}: ${context.parsed.x}`;
+                                }
+                            }
+                        },
+                        datalabels: { // Show data labels on the bars
+                            anchor: 'end',
+                            align: 'end',
+                            color: colors.chartText, // USANDO EL NUEVO COLOR
+                            font: { weight: 'bold', size: 14 },
+                            formatter: (value) => value
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 220, 
+                            grid: { display: false },
+                            ticks: { display: false }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { color: colors.chartText, font: { weight: '600' } } // USANDO EL NUEVO COLOR
+                        }
+                    }
+                }
+            });
+        }
+
+
+        // Initialize all charts on load
+        window.onload = function() {
+            // Register the ChartDataLabels plugin
+            if (typeof ChartDataLabels !== 'undefined') {
+                Chart.register(ChartDataLabels);
+            }
+            createRsvpDistributionChart();
+            createAttendanceBreakdownChart(); 
+            createExpenseChart();
+            createFunnelChart();
+        };
+
+    </script>
+</body>
+</html>
