@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retail Hub Breakfast Data Dashboard</title>
+    <title>Retail Hub Breakfast Event Dashboard</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Chart.js for Infographics -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
-    <!-- Load Chart.js Data Labels Plugin (for the funnel chart) -->
+    <!-- Load Chart.js Data Labels Plugin -->
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-    <!-- Load Inter font -->
+    <!-- Load Inter Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <style>
-        /* Custom Tailwind Configuration for the New Brand Colors */
+        /* Custom Tailwind configuration for brand colors */
         :root {
-            --color-primary-dark: #5c0014;    /* Deep Maroon: Primary Text, Main Accent */
-            --color-secondary-dark: #003f4d;  /* Dark Teal/Navy: Secondary Text, Strong Accent */
+            --color-primary-dark: #5c0014;    /* Dark Maroon: Primary Text, Main Accent */
+            --color-secondary-dark: #003f4d;  /* Dark Teal: Secondary Text, Strong Accent */
             --color-accent-1: #c63500;        /* Burnt Orange: Tertiary Accent */
             
             --color-light-accent-1: #ffbfc2;  /* Pale Pink: Very Light Accent */
@@ -28,7 +28,7 @@
             --color-chart-text: #171819;      /* Custom Dark Text for Charts */
         }
         
-        /* Custom Tailwind Classes for Brand Colors */
+        /* Custom Tailwind classes for brand colors */
         .text-primary-dark { color: var(--color-primary-dark); }
         .bg-primary-dark { background-color: var(--color-primary-dark); }
         .text-secondary-dark { color: var(--color-secondary-dark); }
@@ -38,24 +38,24 @@
         
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--color-background-soft); /* Off-White Background */
+            background-color: var(--color-background-soft);
             padding: 2rem;
         }
 
-        /* Chart container styling */
+        /* Chart container style */
         .chart-container {
             position: relative;
-            height: 300px; /* Consistent height for charts */
+            height: 300px;
             width: 100%;
         }
-        /* Specific height for the Funnel/Expense Charts to fit the layout */
+        /* Specific height for funnel/expense charts */
         .chart-container-small {
             position: relative;
             height: 250px;
             width: 100%;
         }
 
-        /* Responsive Table Styling */
+        /* Responsive table style */
         .responsive-table {
             border-collapse: collapse;
             width: 100%;
@@ -63,11 +63,11 @@
         .responsive-table th, .responsive-table td {
             padding: 0.75rem;
             text-align: left;
-            border-bottom: 1px solid var(--color-light-accent-2); /* Pale Cyan Border */
+            border-bottom: 1px solid var(--color-light-accent-2);
         }
         .responsive-table th {
-            background-color: var(--color-light-accent-2); /* Pale Cyan Header */
-            color: var(--color-secondary-dark); /* Dark Teal Text */
+            background-color: var(--color-light-accent-2);
+            color: var(--color-secondary-dark);
             font-weight: 600;
         }
         .card {
@@ -77,8 +77,7 @@
             padding: 1.5rem;
             transition: transform 0.3s ease;
         }
-        /* Define specific metric card border colors */
-        /* MODIFICADO: Todos los bordes ahora son Naranja Quemado (accent-1) */
+        /* Define specific border colors for metric cards */
         .metric-card-1 { border-left: 4px solid var(--color-accent-1); } 
         .metric-card-2 { border-left: 4px solid var(--color-accent-1); }
         .metric-card-3 { border-left: 4px solid var(--color-accent-1); }
@@ -94,45 +93,63 @@
             <p class="text-lg text-secondary-dark">Performance Dashboard</p>
         </header>
 
-        <!-- 1. Top-Line Performance Metrics (The Vitals) -->
+        <!-- Executive Summary Card -->
+        <div class="card mb-8">
+            <h2 class="text-2xl font-bold text-primary-dark mb-4">Executive Attendance Summary</h2>
+            <p class="text-secondary-dark leading-relaxed mb-3">
+                A total of <strong>208 people</strong> were directly invited, split into <b>HQ Workshop</b> (66), <b>NGRH Members</b> (29), and <b>Directly Invited Clients/Retail</b> (113). 
+                An additional <strong>7 external guests</strong> registered through social channels (<b>External Not Invited</b>), bringing the total confirmed RSVPs to <strong>60</strong>.
+            </p>
+            <ul class="list-disc ml-6 text-secondary-dark leading-relaxed">
+                <li>The direct <strong>RSVP Rate</strong> (excluding external registrations) was <strong>25%</strong> (53 responses from 208 direct invitations).</li>
+                <li>Total <strong>Attendance</strong> reached <strong>50 people</strong>. This count includes <b>6 "Silent Attendees"</b> who did not RSVP but were identified post-event.</li>
+                <li><p>The <strong>Show-Up Rate for Direct RSVPs</strong> was robust at <strong>74%</strong> (39 direct attendees out of 53 direct RSVPs).</p></li>
+                <li>The <strong>Total Attendance Rate</strong> (based on direct invites) was <strong>22%</strong>.</li>
+            </ul>
+            <p class="text-xs text-right text-gray-500 mt-4">
+                *Note: Final attendance was manually estimated by reviewing post-event photos; minor deviations are possible.
+            </p>
+        </div>
+        <!-- End Executive Summary Card -->
+
+        <!-- 1. Key Performance Metrics -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
             <!-- Total Attendance -->
             <div class="card metric-card-1">
                 <p class="text-sm font-medium text-secondary-dark uppercase">Total Attendance</p>
-                <!-- MODIFICADO: El texto principal ahora es Naranja Quemado (text-accent-1) -->
                 <p class="text-4xl font-bold text-accent-1 mt-1">50</p>
-                <p class="text-xs text-secondary-dark">Estimated: 50</p>
+                <p class="text-xs text-secondary-dark">Includes 6 Silent Attendees</p>
             </div>
-           <!-- RSVP Rate (excl. External) -->
+           <!-- RSVP Rate (Excl. External) -->
             <div class="card metric-card-3">
-                <p class="text-sm font-medium text-secondary-dark uppercase">RSVP Rate (excl. External)</p>
-                <!-- Ya estaba en Naranja Quemado (text-accent-1) -->
+                <p class="text-sm font-medium text-secondary-dark uppercase">RSVP Rate (Excl. External)</p>
                 <p class="text-4xl font-bold text-accent-1 mt-1">25%</p>
-                <p class="text-xs text-secondary-dark">51 RSVPs from 208 invites</p>
+                <!-- Data: 53 Direct RSVPs from 208 invites -->
+                <p class="text-xs text-secondary-dark">53 RSVPs from 208 invites</p>
             </div>
-            <!-- RSVP Show-Up Rate (excl. External) -->
+            <!-- Direct RSVP Show-Up Rate -->
             <div class="card metric-card-2">
-                <p class="text-sm font-medium text-secondary-dark uppercase">RSVP Show-Up Rate (excl. External)</p>
-                <!-- MODIFICADO: El texto principal ahora es Naranja Quemado (text-accent-1) -->
-                <p class="text-4xl font-bold text-accent-1 mt-1">65%</p>
-                <p class="text-xs text-secondary-dark">39 Attendees of 51 total RSVPs</p>
+                <p class="text-sm font-medium text-secondary-dark uppercase">Direct RSVP Show-Up Rate</p>
+                <!-- Data: 74% (39/53) -->
+                <p class="text-4xl font-bold text-accent-1 mt-1">74%</p>
+                <!-- Data: 39 Direct Attendees from 53 total Direct RSVPs -->
+                <p class="text-xs text-secondary-dark">39 Direct Attendees from 53 RSVPs</p>
             </div>
-            <!-- Total Expenses (SEK) -->
+            <!-- Total Expenses (SEK) (EXCLUDING LINKEDIN AD) -->
             <div class="card metric-card-4">
                 <p class="text-sm font-medium text-secondary-dark uppercase">Total Expenses (SEK)</p>
-                <!-- MODIFICADO: El texto principal ahora es Naranja Quemado (text-accent-1) -->
-                <p class="text-4xl font-bold text-accent-1 mt-1">8,974.42</p>
-                <p class="text-xs text-secondary-dark">Food, Flowers, LinkedIn Ad</p>
+                <!-- 2688.42 (Food) + 700.00 (Flowers) = 3388.42 -->
+                <p class="text-4xl font-bold text-accent-1 mt-1">3,388.42</p>
+                <p class="text-xs text-secondary-dark">Food and Flowers only (Excludes LinkedIn Ad)</p>
             </div>
         </div>
 
         <!-- 2. & 3. Infographics and Breakdown -->
-        <!-- RESTAURADO: Diseño de 3 columnas para incluir el gráfico de Asistencia. -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
 
             <!-- RSVP Distribution Donut Chart (Col 1) -->
             <div class="card lg:col-span-1">
-                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">RSVP Distribution (N=58)</h2>
+                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">RSVP Distribution (Total=60)</h2>
                 <div class="chart-container">
                     <canvas id="rsvpDistributionChart"></canvas>
                 </div>
@@ -140,50 +157,52 @@
             
             <!-- Attendance Breakdown Stacked Bar Chart (Col 2 & 3) -->
             <div class="card lg:col-span-2">
-                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">Total Attendance Breakdown (N=50)</h2>
+                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">Total Attendance Breakdown (Total=50)</h2>
                 <div class="chart-container">
                     <canvas id="attendanceBreakdownChart"></canvas>
                 </div>
             </div>
         </div>
 
-        <!-- 4. Financial & Funnel Chart Details -->
+        <!-- 4. Financial and Funnel Details -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
 
             <!-- Expense Breakdown Chart (Col 1) -->
             <div class="card lg:col-span-1">
                 <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">Financial Summary (SEK)</h2>
+                <p class="text-sm text-gray-500 mb-2">Excludes 5,586 SEK LinkedIn Ad expense for event-specific costs.</p>
                 <div class="chart-container-small mb-4">
                     <canvas id="expenseChart"></canvas>
                 </div>
-                <!-- Cost Per Attendee UPDATED (8974.42 / 50 = 179.49) -->
+                <!-- Cost per Attendee (3388.42 / 50 = 67.7684) -->
                 <div class="text-center mt-4">
                     <p class="text-sm font-medium text-secondary-dark uppercase">Cost Per Attendee</p>
-                    <p class="text-2xl font-bold text-primary-dark">~179.49 SEK</p>
+                    <p class="text-2xl font-bold text-primary-dark">~67.77 SEK</p>
                 </div>
             </div>
             
             <!-- Invitation Funnel Chart (Col 2 & 3) -->
             <div class="card lg:col-span-2">
-                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">Invitation Funnel: Invite, RSVP, and Attendance</h2>
+                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">Invitation Funnel: Invites, RSVPs, and Attendance</h2>
                 <div class="chart-container-small mb-4">
                     <canvas id="funnelChart"></canvas>
                 </div>
+                <!-- Funnel Description -->
                 <div class="text-center mt-4 text-secondary-dark">
-                    <p class="text-sm font-medium">Visualization of the conversion funnel from 208 invites to 39 confirmed attendees (excl. external).</p>
+                    <p class="text-sm font-medium">Visualization of the conversion funnel from total invited guests to direct RSVPs and final attendees.</p>
                 </div>
             </div>
         </div>
 
-        <!-- 5. Invitation & Expense Tables (New Full-Width Section) -->
+        <!-- 5. Invitation and Expense Tables -->
         <div class="grid grid-cols-1 gap-6">
             <div class="card">
-                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">Invitation Sources & Expense Details</h2>
+                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">Invitation Sources and Expense Details</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Invitation Table - UNCHANGED -->
+                    <!-- Invitation Table - GROUP NAME UNIFORMITY -->
                     <div>
-                        <h3 class="text-lg font-medium text-primary-dark mb-3">Total People Directly Invited (N=208)</h3>
+                        <h3 class="text-lg font-medium text-primary-dark mb-3">Directly Invited People (Total=208)</h3>
                         <table class="responsive-table">
                             <thead>
                                 <tr>
@@ -193,30 +212,32 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td>HQ Mail List (HQ)</td><td>66</td><td>31.7%</td></tr>
-                                <tr><td>NGRH Mail List (NGRH)</td><td>27</td><td>13.0%</td></tr>
-                                <tr><td>Mail Invites</td><td>115</td><td>55.3%</td></tr>
+                                <!-- HQ Workshop: 66, 31.7% -->
+                                <tr><td>HQ Workshop</td><td>66</td><td>31.7%</td></tr>
+                                <!-- NGRH Members: 29, 13.9% -->
+                                <tr><td>NGRH Members</td><td>29</td><td>13.9%</td></tr>
+                                <!-- Directly Invited Clients/Retail: 113, 54.3% -->
+                                <tr><td>Directly Invited Clients/Retail</td><td>113</td><td>54.3%</td></tr>
                                 <tr class="font-bold border-t-2 border-[var(--color-primary-dark)]"><td>TOTAL INVITED</td><td>208</td><td>100%</td></tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <!-- Expense Table - UNCHANGED -->
+                    <!-- Expense Table - NO PERCENTAGES -->
                     <div>
-                        <h3 class="text-lg font-medium text-primary-dark mb-3">Total Expenses Breakdown</h3>
+                        <h3 class="text-lg font-medium text-primary-dark mb-3">Total Expense Breakdown (All Costs)</h3>
                         <table class="responsive-table">
                             <thead>
                                 <tr>
                                     <th>Category</th>
                                     <th>Cost (SEK)</th>
-                                    <th>% of TC</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td>LinkedIn Ad</td><td>5,586.00</td><td>62.2%</td></tr>
-                                <tr><td>Food (excl. Coffee)</td><td>2,688.42</td><td>30.0%</td></tr>
-                                <tr><td>Flowers (Host/Speaker)</td><td>700.00</td><td>7.8%</td></tr>
-                                <tr class="font-bold border-t-2 border-[var(--color-primary-dark)]"><td>TOTAL EXPENSES</td><td>8,974.42</td><td>100%</td></tr>
+                                <tr><td>LinkedIn Ad</td><td>5,586.00</td></tr>
+                                <tr><td>Food (Excl. Coffee)</td><td>2,688.42</td></tr>
+                                <tr><td>Flowers (Host/Speaker)</td><td>700.00</td></tr>
+                                <tr class="font-bold border-t-2 border-[var(--color-primary-dark)]"><td>TOTAL EXPENSES</td><td>8,974.42</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -227,68 +248,77 @@
     </div>
 
     <script>
-        // Data derived from the user's provided analysis
+        // Data derived from analysis
         const data = {
-            // RSVP Distribution (N=58). Data is UNCHANGED.
-            rsvpLabels: ['Mail Invites', 'Workshop (WS)', 'NGRH', 'External (Social)'],
-            rsvpCounts: [34, 10, 7, 7], // Total: 58
+            // RSVP Distribution (Total=60). (35 Directly Invited, 11 HQ, 7 NGRH, 7 External)
+            rsvpLabels: [
+                'Directly Invited Clients/Retail', 
+                'HQ Workshop', 
+                'NGRH Members', 
+                'External Not Invited'
+            ],
+            rsvpCounts: [35, 11, 7, 7], 
             
-            // Attendance Breakdown (N=50). ESTA DATA YA NO SE USA PARA UN GRÁFICO, PERO SE MANTIENE PARA LOS KPI's
-            attendanceLabels: ['Silent Attendees', 'External RSVP', 'Workshop RSVP', 'NGRH RSVP', 'Invited RSVP'],
-            attendanceCounts: [6, 5, 8, 7, 24], 
+            // Attendance Breakdown (Total=50). Order: Silent, External, NGRH, HQ, Directly Invited (bottom to top stacking)
+            attendanceLabels: [
+                'Silent Attendees', // 6
+                'External Not Invited', // 5
+                'NGRH Members', // 5
+                'HQ Workshop', // 8
+                'Directly Invited Clients/Retail' // 26
+            ],
+            attendanceCounts: [6, 5, 5, 8, 26], 
             
-            // Expense Breakdown (Total: 8,974.42 SEK). Data is UNCHANGED.
-            expenseLabels: ['LinkedIn Ad', 'Food', 'Flowers'],
-            expenseCosts: [5586.00, 2688.42, 700.00],
+            // Expense Breakdown (Non-Ad Costs Only: 3388.42 SEK)
+            expenseLabels: ['Food', 'Flowers'],
+            expenseCosts: [2688.42, 700.00],
 
-            // Funnel Breakdown (Invite, RSVP excl. external, Attendee excl. external)
-            // Total Invited: 208, RSVPs excl. External: 51, Attendees excl. External: 39 
-            funnelLabels: ['Attendees (excl. External)', 'RSVPs (excl. External)', 'Total Invited People'],
-            funnelCounts: [39, 51, 208]
+            // Funnel Breakdown - REVISED ORDER
+            funnelLabels: ['Total People Invited', 'Direct RSVPs', 'Directly Invited Attendees'],
+            funnelCounts: [208, 53, 39]
         };
         
-        // Brand colors (as defined by user's request)
+        // Brand colors
         const colors = {
-            primaryDark: '#5c0014',     // Deep Maroon (Marrón Oscuro)
-            secondaryDark: '#003f4d',   // Dark Teal/Navy (Azul Oscuro)
-            accentOrange: '#c63500',    // Burnt Orange (Naranja Oscuro)
-            lightAccentPink: '#ffbfc2', // Pale Pink (Rosa Claro)
-            lightAccentCyan: '#c0eded',  // Pale Cyan (Azul Claro)
-            lightAccentPeach: '#ffd0b7', // Pale Peach (Naranja Claro)
-            softBackground: '#f1f5f6',  // Off-White
+            primaryDark: '#5c0014',     
+            secondaryDark: '#003f4d',   
+            accentOrange: '#c63500',    
+            lightAccentPink: '#ffbfc2', 
+            lightAccentCyan: '#c0eded',  
+            lightAccentPeach: '#ffd0b7', 
+            softBackground: '#f1f5f6',  
             white: '#FFFFFF',
-            chartText: '#171819'        // Custom Dark Text (General oscuro)
+            chartText: '#171819'        
         };
 
-        // Función auxiliar para determinar el color de contraste en gráficos de pastel/donut
+        // Helper function to determine contrast color in pie/donut charts
         const getDatalabelColorPie = (index, chartType) => {
             let bgColor;
 
             if (chartType === 'rsvp') {
-                // Colores DEBEN coincidir con los definidos en createRsvpDistributionChart:
-                // primaryDark, accentOrange, secondaryDark, lightAccentCyan
+                // Mapping colors to RSVP groups
                 const bgColors = [colors.primaryDark, colors.accentOrange, colors.secondaryDark, colors.lightAccentCyan];
                 bgColor = bgColors[index];
             } else if (chartType === 'expense') {
-                // Colores para el Pie de Gastos (SIN CAMBIOS)
-                const bgColors = [colors.primaryDark, colors.secondaryDark, colors.accentOrange];
+                // Mapping colors to Expense groups (only 2 now)
+                const bgColors = [colors.secondaryDark, colors.accentOrange];
                 bgColor = bgColors[index];
             } else {
-                return colors.white; // Fallback
+                return colors.white; 
             }
 
-            // Lógica de contraste específica (se mantiene robusta a cambios en el orden):
-            if (bgColor === colors.primaryDark) { // Marrón Oscuro
-                return colors.lightAccentPink; // -> Rosa Claro
-            } else if (bgColor === colors.secondaryDark) { // Azul Oscuro
-                return colors.lightAccentCyan; // -> Azul Claro
-            } else if (bgColor === colors.accentOrange) { // Naranja Oscuro
-                return colors.lightAccentPeach; // -> Naranja Claro
-            } else if (bgColor === colors.lightAccentCyan) { // Azul Claro (External RSVP)
-                return colors.secondaryDark; // -> Azul Oscuro
+            // Contrast logic
+            if (bgColor === colors.primaryDark) { 
+                return colors.lightAccentPink; 
+            } else if (bgColor === colors.secondaryDark) { 
+                return colors.lightAccentCyan; 
+            } else if (bgColor === colors.accentOrange) { 
+                return colors.lightAccentPeach; 
+            } else if (bgColor === colors.lightAccentCyan) { 
+                return colors.secondaryDark; 
             } 
             
-            return colors.chartText; // Usar texto oscuro para cualquier color claro de fondo no mapeado
+            return colors.chartText; 
         };
 
 
@@ -303,10 +333,10 @@
                         label: 'RSVP Count',
                         data: data.rsvpCounts,
                         backgroundColor: [
-                            colors.primaryDark,      // 0. Mail Invites (Marrón Oscuro) -> Coincide con Invited RSVP
-                            colors.accentOrange,     // 1. Workshop (WS) (Naranja Oscuro) -> Coincide con Workshop RSVP (AJUSTADO)
-                            colors.secondaryDark,    // 2. NGRH (Azul Oscuro) -> Coincide con NGRH RSVP (AJUSTADO)
-                            colors.lightAccentCyan   // 3. External (Social) (Azul Claro) -> Coincide con External RSVP
+                            colors.primaryDark,      // Directly Invited Clients/Retail
+                            colors.accentOrange,     // HQ Workshop
+                            colors.secondaryDark,    // NGRH Members
+                            colors.lightAccentCyan   // External Not Invited
                         ],
                         hoverOffset: 4,
                         borderWidth: 2,
@@ -338,8 +368,6 @@
                         },
                         // Data labels for percentage inside slices 
                         datalabels: { 
-                            // POSICIÓN ORIGINAL: Centrada por defecto.
-                            // Aplicar la lógica de contraste para cada segmento
                             color: (context) => getDatalabelColorPie(context.dataIndex, 'rsvp'),
                             font: { weight: 'bold', size: 12 },
                             formatter: (value, context) => {
@@ -356,75 +384,73 @@
         // Function to create the Stacked Bar Chart (Attendance Breakdown)
         function createAttendanceBreakdownChart() {
             const ctx = document.getElementById('attendanceBreakdownChart').getContext('2d');
-            const totalAttendance = data.attendanceCounts.reduce((a, b) => a + b, 0); // Should be 50
+            const totalAttendance = data.attendanceCounts.reduce((a, b) => a + b, 0); 
 
-            // Calculate percentages for the stacked bar labels
+            // Calculate percentages for tooltips
             const percentages = data.attendanceCounts.map(count => ((count / totalAttendance) * 100).toFixed(1) + '%');
             
-            // Lógica para aplicar los colores de contraste específicos según el nuevo mapeo
+            // Logic to apply specific contrast colors
             const getDatalabelColorSpecific = (label) => {
+                // Using the specific names to assign colors
                 switch (label) {
-                    // Dark Box -> Light Text (Marrón Oscuro -> Rosa Claro)
-                    case 'Invited RSVP': 
+                    // Dark Boxes -> Light Text
+                    case 'Directly Invited Clients/Retail': 
                         return colors.lightAccentPink; 
-                    // Dark Box -> Light Text (Azul Oscuro -> Azul Claro)
-                    case 'NGRH RSVP': 
+                    case 'NGRH Members': 
                         return colors.lightAccentCyan; 
-                    // Dark Box -> Light Text (Naranja Oscuro -> Naranja Claro)
-                    case 'Workshop RSVP': 
+                    case 'HQ Workshop': 
                         return colors.lightAccentPeach; 
-
-                    // Light Box -> Dark Text (Rosa Claro -> Marrón Oscuro)
+                    // Light Boxes -> Dark Text
                     case 'Silent Attendees': 
                         return colors.primaryDark; 
-                    // Light Box -> Dark Text (Azul Claro -> Azul Oscuro)
-                    case 'External RSVP': // ESTE ES EL CAMBIO PRINCIPAL EN EL CONTRASTE
+                    case 'External Not Invited': 
                         return colors.secondaryDark; 
                         
                     default:
-                        return colors.white; // Fallback
+                        return colors.white; 
                 }
             };
 
-
-            // Reversing the order of datasets to match the visual stacking and label order requested
+            // Creating datasets in reverse order for stacking to appear correctly (bottom-up in legend/data)
+            // Data array index 0 (Silent) is at the bottom of the stack.
+            // Data array index 4 (Directly Invited) is at the top of the stack.
             const datasets = [
                 { 
-                    label: 'Silent Attendees', 
+                    label: data.attendanceLabels[0], // Silent Attendees (6)
                     data: [data.attendanceCounts[0]], 
-                    backgroundColor: colors.lightAccentPink, // Rosa Claro
+                    backgroundColor: colors.lightAccentPink, 
                     borderColor: colors.lightAccentPink, 
                     borderWidth: 1, 
                     stack: 'Stack 1',
-                    datalabels: { color: getDatalabelColorSpecific('Silent Attendees') } // Texto Marrón Oscuro
+                    datalabels: { color: getDatalabelColorSpecific(data.attendanceLabels[0]) } 
                 },
                 { 
-                    label: 'External RSVP', 
+                    label: data.attendanceLabels[1], // External Not Invited (5)
                     data: [data.attendanceCounts[1]], 
-                    backgroundColor: colors.lightAccentCyan, // Azul Claro (AJUSTADO: Coincide con External Social RSVP)
+                    backgroundColor: colors.lightAccentCyan, 
                     stack: 'Stack 1',
-                    datalabels: { color: getDatalabelColorSpecific('External RSVP') } // Texto Azul Oscuro
+                    datalabels: { color: getDatalabelColorSpecific(data.attendanceLabels[1]) } 
                 },
                 { 
-                    label: 'Workshop RSVP', 
+                    label: data.attendanceLabels[2], // NGRH Members (5) - Index 2
                     data: [data.attendanceCounts[2]], 
-                    backgroundColor: colors.accentOrange, // Naranja Oscuro (Coincide con Workshop WS RSVP)
+                    backgroundColor: colors.secondaryDark, 
                     stack: 'Stack 1',
-                    datalabels: { color: getDatalabelColorSpecific('Workshop RSVP') } // Texto Naranja Claro
+                    datalabels: { color: getDatalabelColorSpecific(data.attendanceLabels[2]) } 
                 },
                 { 
-                    label: 'NGRH RSVP', 
+                    label: data.attendanceLabels[3], // HQ Workshop (8) - Index 3
                     data: [data.attendanceCounts[3]], 
-                    backgroundColor: colors.secondaryDark, // Azul Oscuro (Coincide con NGRH RSVP)
+                    backgroundColor: colors.accentOrange, 
                     stack: 'Stack 1',
-                    datalabels: { color: getDatalabelColorSpecific('NGRH RSVP') } // Texto Azul Claro
+                    datalabels: { color: getDatalabelColorSpecific(data.attendanceLabels[3]) } 
                 },
                 { 
-                    label: 'Invited RSVP', 
+                    label: data.attendanceLabels[4], // Directly Invited Clients/Retail (26) - Index 4
                     data: [data.attendanceCounts[4]], 
-                    backgroundColor: colors.primaryDark, // Marrón Oscuro (Coincide con Mail Invites)
+                    backgroundColor: colors.primaryDark, 
                     stack: 'Stack 1',
-                    datalabels: { color: getDatalabelColorSpecific('Invited RSVP') } // Texto Rosa Claro
+                    datalabels: { color: getDatalabelColorSpecific(data.attendanceLabels[4]) } 
                 },
             ];
 
@@ -432,12 +458,14 @@
                 type: 'bar',
                 data: {
                     labels: ['Total Event Attendance'],
-                    datasets: datasets.reverse() // Reverse to match the data order (bottom of stack is first element of data)
+                    // Reverse the datasets so they are displayed top-to-bottom in the chart/legend 
+                    // (Index 4 is now at the top of the bar, matching the user's requested display order for invited groups)
+                    datasets: datasets.reverse() 
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    indexAxis: 'y', // Horizontal bar
+                    indexAxis: 'y', 
                     plugins: {
                         legend: {
                             position: 'bottom',
@@ -445,7 +473,7 @@
                                 padding: 15,
                                 usePointStyle: true,
                                 color: colors.chartText,
-                                reverse: true // To keep the legend order matching the stack visual
+                                reverse: true 
                             }
                         },
                         tooltip: {
@@ -457,22 +485,21 @@
                                     const count = context.parsed.x;
                                     const label = context.dataset.label;
                                     
-                                    // Manually find the original count index in the source data (attendanceCounts)
-                                    // This is necessary because datasets is reversed for charting but percentages array is not.
+                                    // Find original index for percentage (based on data.attendanceLabels order)
                                     let percentageIndex = data.attendanceLabels.indexOf(label);
 
                                     return ` ${label}: ${count} (${percentages[percentageIndex]})`;
                                 }
                             } 
                         },
-                        // CONFIGURACIÓN PARA MOSTRAR LOS DATOS DENTRO DE CADA CAJA (Y color de contraste)
+                        // Configuration to show data inside each bar
                         datalabels: { 
                             anchor: 'center',
                             align: 'center',
                             offset: 0,
                             font: { weight: 'bold', size: 12 },
                             formatter: (value, context) => {
-                                // Find the actual count associated with this dataset
+                                // Find the actual count using the label
                                 const label = context.dataset.label;
                                 const index = data.attendanceLabels.indexOf(label);
                                 
@@ -508,9 +535,8 @@
                         label: 'Cost (SEK)',
                         data: data.expenseCosts,
                         backgroundColor: [
-                            colors.primaryDark,     // Marrón Oscuro
-                            colors.secondaryDark,    // Azul Oscuro
-                            colors.accentOrange      // Naranja Oscuro
+                            colors.secondaryDark,    // Food
+                            colors.accentOrange      // Flowers
                         ],
                         hoverOffset: 4,
                         borderWidth: 2,
@@ -536,14 +562,13 @@
                                     const value = context.parsed;
                                     const total = context.dataset.data.reduce((a, b) => a + b, 0);
                                     const percentage = ((value / total) * 100).toFixed(1) + '%';
+                                    // Localize SEK currency for tooltip
                                     return ` ${context.label}: ${value.toLocaleString('sv-SE', { style: 'currency', currency: 'SEK' })} (${percentage})`;
                                 }
                             }
                         },
                         // Data labels for percentage inside slices 
                         datalabels: { 
-                            // POSICIÓN ORIGINAL: Centrada por defecto.
-                            // Aplicar la lógica de contraste para cada segmento
                             color: (context) => getDatalabelColorPie(context.dataIndex, 'expense'),
                             font: { weight: 'bold', size: 12 },
                             formatter: (value, context) => {
@@ -557,7 +582,7 @@
             });
         }
 
-        // Function to create the Horizontal Funnel Bar Chart
+        // Function to create the Horizontal Funnel Bar Chart - UPDATED X-AXIS MAX
         function createFunnelChart() {
             const ctx = document.getElementById('funnelChart').getContext('2d');
             new Chart(ctx, {
@@ -567,10 +592,11 @@
                     datasets: [{
                         label: 'Count',
                         data: data.funnelCounts,
+                        // Colors assigned largest (index 0) to smallest (index 2)
                         backgroundColor: [
-                            colors.accentOrange,     // Attendees excl. External
-                            colors.secondaryDark,    // RSVPs excl. External
-                            colors.primaryDark       // Invited
+                            colors.primaryDark,       // Total People Invited (208)
+                            colors.secondaryDark,    // Direct RSVPs (53)
+                            colors.accentOrange      // Directly Invited Attendees (39)
                         ],
                         borderColor: colors.softBackground,
                         borderWidth: 1,
@@ -580,7 +606,7 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    indexAxis: 'y', // Horizontal bar
+                    indexAxis: 'y', // Makes the bar horizontal, top label (index 0) will be top-most bar
                     plugins: {
                         legend: { display: false },
                         tooltip: {
@@ -590,7 +616,7 @@
                                 }
                             }
                         },
-                        datalabels: { // Show data labels on the bars (Fuera, como se solicitó)
+                        datalabels: { 
                             anchor: 'end',
                             align: 'end',
                             color: colors.chartText, 
@@ -601,7 +627,7 @@
                     scales: {
                         x: {
                             beginAtZero: true,
-                            max: 220, 
+                            max: 230, // Updated from 220 to 230
                             grid: { display: false },
                             ticks: { display: false }
                         },
@@ -630,3 +656,4 @@
     </script>
 </body>
 </html>
+
