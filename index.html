@@ -217,26 +217,14 @@
             </div>
         </div>
 
-        <!-- 4. Show-Up Rate and Funnel Details (Charts) - STACKED FULL WIDTH -->
+        <!-- 4. Show-Up Rate Details (Charts) - STACKED FULL WIDTH -->
 
         <!-- Card 1: Show-Up Rate (Full Width) -->
-        <div class="card mb-6">
+        <div class="card mb-8">
             <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">Show-Up Rate by Group</h2>
             <p class="text-sm text-gray-500 mb-2">Conversion rate (Attendees / RSVPs) for each direct group.</p>
             <div class="chart-container-small mb-4">
                 <canvas id="showUpRateChart"></canvas>
-            </div>
-        </div>
-
-        <!-- Card 2: Invitation Funnel (Full Width, below the Show-Up Rate chart) -->
-        <div class="card mb-8">
-            <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">Invitation Funnel: Invites, RSVPs, and Attendance</h2>
-            <div class="chart-container-small mb-4">
-                <canvas id="funnelChart"></canvas>
-            </div>
-            <!-- Funnel Description -->
-            <div class="text-center mt-4 text-secondary-dark">
-                <p class="text-sm font-medium">Visualization of the conversion funnel from total invited guests to direct RSVPs and final attendees.</p>
             </div>
         </div>
 
@@ -283,9 +271,7 @@
             ],
             attendanceCounts: [6, 5, 5, 8, 26], 
 
-            // Funnel Breakdown
-            funnelLabels: ['Total People Invited', 'Direct RSVPs', 'Directly Invited Attendees'],
-            funnelCounts: [208, 53, 39],
+            // Funnel data removed
             
             // NEW DATA: RSVP to Attendee Conversion Rates
             showUpRateLabels: [
@@ -363,7 +349,7 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            position: 'bottom',
+                            position: 'right', // Legend on the right
                             labels: {
                                 padding: 15,
                                 usePointStyle: true,
@@ -598,63 +584,7 @@
             });
         }
 
-        // Function to create the Horizontal Funnel Bar Chart
-        function createFunnelChart() {
-            const ctx = document.getElementById('funnelChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: data.funnelLabels,
-                    datasets: [{
-                        label: 'Count',
-                        data: data.funnelCounts,
-                        // UPDATED: Use light colors for the funnel bars
-                        backgroundColor: [
-                            colors.lightAccentPink,  // Total People Invited (208)
-                            colors.lightAccentCyan,  // Direct RSVPs (53)
-                            colors.lightAccentPeach  // Directly Invited Attendees (39)
-                        ],
-                        borderColor: colors.softBackground,
-                        borderWidth: 1,
-                        borderRadius: 4,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y', // Makes the bar horizontal, top label (index 0) will be top-most bar
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return ` ${context.label}: ${context.parsed.x}`;
-                                }
-                            }
-                        },
-                        datalabels: { 
-                            anchor: 'end',
-                            align: 'end',
-                            color: colors.chartText, 
-                            font: { weight: 'bold', size: 14 },
-                            formatter: (value) => value
-                        }
-                    },
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            max: 230, // Updated from 220 to 230
-                            grid: { display: false },
-                            ticks: { display: false }
-                        },
-                        y: {
-                            grid: { display: false },
-                            ticks: { color: colors.chartText, font: { weight: '600' } } 
-                        }
-                    }
-                }
-            });
-        }
+        // The createFunnelChart function has been removed.
 
 
         // Initialize all charts on load
@@ -666,7 +596,7 @@
             createRsvpDistributionChart();
             createAttendanceBreakdownChart(); 
             createShowUpRateChart(); 
-            createFunnelChart();
+            // Removed createFunnelChart() call
         };
 
     </script>
