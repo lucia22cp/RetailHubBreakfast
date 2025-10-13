@@ -98,12 +98,12 @@
             <h2 class="text-2xl font-bold text-primary-dark mb-4">Executive Attendance Summary</h2>
             <p class="text-secondary-dark leading-relaxed mb-3">
                 A total of <strong>208 people</strong> were directly invited, split into <b>HQ Workshop</b> (66), <b>NGRH Members</b> (29), and <b>Directly Invited Clients/Retail</b> (113). 
-                An additional <strong>7 external guests</strong> registered through social channels (<b>External Not Invited</b>).
+                An additional <strong>7 external guests</strong> registered through social channels (<b>External Not Invited</b>), bringing the total confirmed RSVPs to <strong>60</strong>.
             </p>
             <ul class="list-disc ml-6 text-secondary-dark leading-relaxed">
                 <li>The direct <strong>RSVP Rate</strong> (excluding external registrations) was <strong>25%</strong> (53 responses from 208 direct invitations).</li>
                 <li>Total <strong>Attendance</strong> reached <strong>50 people</strong>. This count includes <b>6 "Silent Attendees"</b> who did not RSVP but were identified post-event.</li>
-                <li><p>The <strong>Show-Up Rate for Direct RSVPs</strong> was robust at <strong>74%</strong> (39 direct attendees out of 53 direct RSVPs).</p></li>
+                <li>The <strong>Show-Up Rate for Direct RSVPs</strong> was robust at <strong>74%</strong> (39 direct attendees out of 53 direct RSVPs).</li>
                 <li>The <strong>Total Attendance Rate</strong> (based on direct invites) was <strong>22%</strong>.</li>
             </ul>
             <p class="text-xs text-right text-gray-500 mt-4">
@@ -144,63 +144,14 @@
             </div>
         </div>
 
-        <!-- 2. & 3. Infographics and Breakdown -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-
-            <!-- RSVP Distribution Donut Chart (Col 1) -->
-            <div class="card lg:col-span-1">
-                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">RSVP Distribution (Total=60)</h2>
-                <div class="chart-container">
-                    <canvas id="rsvpDistributionChart"></canvas>
-                </div>
-            </div>
-            
-            <!-- Attendance Breakdown Stacked Bar Chart (Col 2 & 3) -->
-            <div class="card lg:col-span-2">
-                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">Total Attendance Breakdown (Total=50)</h2>
-                <div class="chart-container">
-                    <canvas id="attendanceBreakdownChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <!-- 4. Financial and Funnel Details -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-
-            <!-- Expense Breakdown Chart (Col 1) -->
-            <div class="card lg:col-span-1">
-                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">Financial Summary (SEK)</h2>
-                <p class="text-sm text-gray-500 mb-2">Excludes 5,586 SEK LinkedIn Ad expense for event-specific costs.</p>
-                <div class="chart-container-small mb-4">
-                    <canvas id="expenseChart"></canvas>
-                </div>
-                <!-- Cost per Attendee (3388.42 / 50 = 67.7684) -->
-                <div class="text-center mt-4">
-                    <p class="text-sm font-medium text-secondary-dark uppercase">Cost Per Attendee</p>
-                    <p class="text-2xl font-bold text-primary-dark">~67.77 SEK</p>
-                </div>
-            </div>
-            
-            <!-- Invitation Funnel Chart (Col 2 & 3) -->
-            <div class="card lg:col-span-2">
-                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">Directly Invited Clients/Retail + HQ Workshop + NGRH Members </h2>
-                <div class="chart-container-small mb-4">
-                    <canvas id="funnelChart"></canvas>
-                </div>
-                <!-- Funnel Description -->
-                <div class="text-center mt-4 text-secondary-dark">
-                    <p class="text-sm font-medium">Visualization of the conversion funnel from total invited guests to direct RSVPs and final attendees.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 5. Invitation and Expense Tables -->
-        <div class="grid grid-cols-1 gap-6">
+        <!-- MOVED SECTION: Event Detail Tables -->
+        <div class="grid grid-cols-1 gap-6 mb-8">
             <div class="card">
-                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">Invitation Sources and Expense Details</h2>
+                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">Event Detail Tables</h2>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Invitation Table - GROUP NAME UNIFORMITY -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+
+                    <!-- Invitation Sources -->
                     <div>
                         <h3 class="text-lg font-medium text-primary-dark mb-3">Directly Invited People (Total=208)</h3>
                         <table class="responsive-table">
@@ -223,7 +174,7 @@
                         </table>
                     </div>
 
-                    <!-- Expense Table - NO PERCENTAGES -->
+                    <!-- Expense Table -->
                     <div>
                         <h3 class="text-lg font-medium text-primary-dark mb-3">Total Expense Breakdown (All Costs)</h3>
                         <table class="responsive-table">
@@ -244,38 +195,90 @@
                 </div>
             </div>
         </div>
+        <!-- END MOVED SECTION -->
+
+        <!-- 2. & 3. Infographics and Breakdown (Charts) -->
+        <div class="grid grid-cols-1 lg:col-cols-3 gap-6 mb-8">
+
+            <!-- RSVP Distribution Donut Chart (Col 1) -->
+            <div class="card lg:col-span-1">
+                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">RSVP Distribution (Total=60)</h2>
+                <div class="chart-container">
+                    <canvas id="rsvpDistributionChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Attendance Breakdown Stacked Bar Chart (Col 2 & 3) -->
+            <div class="card lg:col-span-2">
+                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">Total Attendance Breakdown (Total=50)</h2>
+                <div class="chart-container">
+                    <canvas id="attendanceBreakdownChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Show-Up Rate and Funnel Details (Charts) -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+
+            <!-- NEW CHART: Show-Up Rate by Group (Col 1) -->
+            <div class="card lg:col-span-1">
+                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">Show-Up Rate by Group</h2>
+                <p class="text-sm text-gray-500 mb-2">Conversion rate (Attendees / RSVPs) for each direct group.</p>
+                <div class="chart-container-small mb-4">
+                    <canvas id="showUpRateChart"></canvas>
+                </div>
+                <!-- Removed the "Total Direct Show-Up Rate 74%" text block as requested -->
+            </div>
+            
+            <!-- Invitation Funnel Chart (Col 2 & 3) -->
+            <div class="card lg:col-span-2">
+                <h2 class="text-xl font-semibold text-primary-dark mb-4 border-b pb-2" style="border-color: var(--color-light-accent-2);">Invitation Funnel: Invites, RSVPs, and Attendance</h2>
+                <div class="chart-container-small mb-4">
+                    <canvas id="funnelChart"></canvas>
+                </div>
+                <!-- Funnel Description -->
+                <div class="text-center mt-4 text-secondary-dark">
+                    <p class="text-sm font-medium">Visualization of the conversion funnel from total invited guests to direct RSVPs and final attendees.</p>
+                </div>
+            </div>
+        </div>
 
     </div>
 
     <script>
         // Data derived from analysis
         const data = {
-            // RSVP Distribution (Total=60). (35 Directly Invited, 10 HQ, 8 NGRH, 7 External)
+            // RSVP Distribution (Total=60). (35 Directly Invited, 11 HQ, 7 NGRH, 7 External)
             rsvpLabels: [
                 'Directly Invited Clients/Retail', 
                 'HQ Workshop', 
                 'NGRH Members', 
                 'External Not Invited'
             ],
-            rsvpCounts: [35, 10, 8, 7], 
+            rsvpCounts: [35, 11, 7, 7], 
             
             // Attendance Breakdown (Total=50). Order: Silent, External, NGRH, HQ, Directly Invited (bottom to top stacking)
             attendanceLabels: [
                 'Silent Attendees', // 6
                 'External Not Invited', // 5
-                'NGRH Members', // 7
-                'HQ Workshop', // 9
-                'Directly Invited Clients/Retail' // 23
+                'NGRH Members', // 5
+                'HQ Workshop', // 8
+                'Directly Invited Clients/Retail' // 26
             ],
-            attendanceCounts: [6, 5, 7, 9, 23], 
-            
-            // Expense Breakdown (Non-Ad Costs Only: 3388.42 SEK)
-            expenseLabels: ['Food', 'Flowers'],
-            expenseCosts: [2688.42, 700.00],
+            attendanceCounts: [6, 5, 5, 8, 26], 
 
-            // Funnel Breakdown - REVISED ORDER
-            funnelLabels: ['Total People Invited', 'Invited RSVPs', 'Invited Attendees'],
-            funnelCounts: [208, 53, 39]
+            // Funnel Breakdown
+            funnelLabels: ['Total People Invited', 'Direct RSVPs', 'Directly Invited Attendees'],
+            funnelCounts: [208, 53, 39],
+            
+            // NEW DATA: RSVP to Attendee Conversion Rates
+            showUpRateLabels: [
+                'HQ Workshop',
+                'NGRH Members',
+                'Directly Invited Clients/Retail'
+            ],
+            showUpRatePercentages: [90.0, 87.5, 65.7],
+            showUpRateDetails: ['9 / 10 RSVPs', '7 / 8 RSVPs', '23 / 35 RSVPs']
         };
         
         // Brand colors
@@ -298,10 +301,6 @@
             if (chartType === 'rsvp') {
                 // Mapping colors to RSVP groups
                 const bgColors = [colors.primaryDark, colors.accentOrange, colors.secondaryDark, colors.lightAccentCyan];
-                bgColor = bgColors[index];
-            } else if (chartType === 'expense') {
-                // Mapping colors to Expense groups (only 2 now)
-                const bgColors = [colors.secondaryDark, colors.accentOrange];
                 bgColor = bgColors[index];
             } else {
                 return colors.white; 
@@ -412,8 +411,6 @@
             };
 
             // Creating datasets in reverse order for stacking to appear correctly (bottom-up in legend/data)
-            // Data array index 0 (Silent) is at the bottom of the stack.
-            // Data array index 4 (Directly Invited) is at the top of the stack.
             const datasets = [
                 { 
                     label: data.attendanceLabels[0], // Silent Attendees (6)
@@ -459,7 +456,6 @@
                 data: {
                     labels: ['Total Event Attendance'],
                     // Reverse the datasets so they are displayed top-to-bottom in the chart/legend 
-                    // (Index 4 is now at the top of the bar, matching the user's requested display order for invited groups)
                     datasets: datasets.reverse() 
                 },
                 options: {
@@ -523,66 +519,70 @@
                 }
             });
         }
-
-        // Function to create the Pie Chart (Expense Breakdown)
-        function createExpenseChart() {
-            const ctx = document.getElementById('expenseChart').getContext('2d');
+        
+        // NEW FUNCTION: Show-Up Rate by Group Chart
+        function createShowUpRateChart() {
+            const ctx = document.getElementById('showUpRateChart').getContext('2d');
             new Chart(ctx, {
-                type: 'pie',
+                type: 'bar',
                 data: {
-                    labels: data.expenseLabels,
+                    labels: data.showUpRateLabels,
                     datasets: [{
-                        label: 'Cost (SEK)',
-                        data: data.expenseCosts,
+                        label: 'Show-Up Rate (%)',
+                        data: data.showUpRatePercentages,
                         backgroundColor: [
-                            colors.secondaryDark,    // Food
-                            colors.accentOrange      // Flowers
+                            colors.accentOrange,     // HQ Workshop (Highest Rate)
+                            colors.secondaryDark,    // NGRH Members (Middle Rate)
+                            colors.primaryDark,      // Directly Invited Clients/Retail (Lowest Rate)
                         ],
-                        hoverOffset: 4,
-                        borderWidth: 2,
-                        borderColor: colors.softBackground
+                        borderColor: colors.softBackground,
+                        borderWidth: 1,
+                        borderRadius: 4,
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    indexAxis: 'y', // Horizontal bars
                     plugins: {
-                        legend: {
-                            position: 'right',
-                            labels: {
-                                padding: 15,
-                                usePointStyle: true,
-                                color: colors.chartText 
-                            }
-                        },
-                        title: { display: false },
+                        legend: { display: false },
                         tooltip: {
                             callbacks: {
+                                title: (context) => context[0].label,
                                 label: function(context) {
-                                    const value = context.parsed;
-                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                    const percentage = ((value / total) * 100).toFixed(1) + '%';
-                                    // Localize SEK currency for tooltip
-                                    return ` ${context.label}: ${value.toLocaleString('sv-SE', { style: 'currency', currency: 'SEK' })} (${percentage})`;
+                                    const percentage = context.parsed.x.toFixed(1) + '%';
+                                    // Get the attendance count detail from the separate array
+                                    const detail = data.showUpRateDetails[context.dataIndex];
+                                    return ` Show-Up Rate: ${percentage} (${detail})`;
                                 }
                             }
                         },
-                        // Data labels for percentage inside slices 
                         datalabels: { 
-                            color: (context) => getDatalabelColorPie(context.dataIndex, 'expense'),
-                            font: { weight: 'bold', size: 12 },
-                            formatter: (value, context) => {
-                                const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
-                                const percentage = Math.round((value / total) * 100) + '%';
-                                return percentage; 
-                            }
+                            anchor: 'end',
+                            align: 'end',
+                            color: colors.chartText, 
+                            font: { weight: 'bold', size: 14 },
+                            formatter: (value) => value.toFixed(1) + '%'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100, 
+                            title: { display: true, text: 'Show-Up Rate (%)', color: colors.chartText },
+                            grid: { display: true, color: 'rgba(0, 0, 0, 0.05)' },
+                            ticks: { color: colors.chartText }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { color: colors.chartText, font: { weight: '600' } } 
                         }
                     }
                 }
             });
         }
 
-        // Function to create the Horizontal Funnel Bar Chart - UPDATED X-AXIS MAX
+        // Function to create the Horizontal Funnel Bar Chart
         function createFunnelChart() {
             const ctx = document.getElementById('funnelChart').getContext('2d');
             new Chart(ctx, {
@@ -649,11 +649,10 @@
             }
             createRsvpDistributionChart();
             createAttendanceBreakdownChart(); 
-            createExpenseChart();
+            createShowUpRateChart(); 
             createFunnelChart();
         };
 
     </script>
 </body>
 </html>
-
